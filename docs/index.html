@@ -5,8 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 대시보드 | AI 도구 활용</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .password-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 300px;
+        }
+        .password-form h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+        .password-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .password-form button {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .password-form button:hover {
+            background: #0056b3;
+        }
+        .password-error {
+            color: #dc3545;
+            margin-top: 10px;
+            display: none;
+        }
+        body.locked {
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
+<body class="locked">
+    <!-- 비밀번호 보호 -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-form">
+            <h2>🔒 관리자 전용</h2>
+            <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요" onkeypress="if(event.key==='Enter') checkPassword()">
+            <button onclick="checkPassword()">접속</button>
+            <div class="password-error" id="passwordError">비밀번호가 틀렸습니다</div>
+        </div>
+    </div>
+
     <div class="admin-container">
         <header class="admin-header">
             <h1>📊 관리자 대시보드</h1>

@@ -1,3 +1,34 @@
+// 비밀번호 보호 (관리자 전용)
+const ADMIN_PASSWORD = 'admin123'; // 비밀번호 변경 가능
+
+function checkPassword() {
+    const input = document.getElementById('passwordInput');
+    const error = document.getElementById('passwordError');
+
+    if (input.value === ADMIN_PASSWORD) {
+        // 비밀번호 맞음
+        document.getElementById('passwordOverlay').style.display = 'none';
+        document.body.classList.remove('locked');
+        localStorage.setItem('adminAuthenticated', 'true');
+    } else {
+        // 비밀번호 틀림
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+    }
+}
+
+// 페이지 로드 시 인증 상태 확인
+window.addEventListener('load', () => {
+    if (!localStorage.getItem('adminAuthenticated')) {
+        document.getElementById('passwordOverlay').style.display = 'flex';
+        document.getElementById('passwordInput').focus();
+    } else {
+        document.getElementById('passwordOverlay').style.display = 'none';
+        document.body.classList.remove('locked');
+    }
+});
+
 // 섹션 네비게이션
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
