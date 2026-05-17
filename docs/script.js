@@ -390,7 +390,7 @@ async function pushToGithub() {
                 },
                 body: JSON.stringify({
                     message: '📝 Admin 대시보드에서 포스트 업데이트',
-                    content: btoa(data),
+                    content: btoa(unescape(encodeURIComponent(data))),
                     sha: sha
                 })
             }
